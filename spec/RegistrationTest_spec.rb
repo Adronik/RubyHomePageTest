@@ -15,7 +15,21 @@ feature 'Registration test' do
     attach_file(:user_avatar, Rails.root + 'tmp/768px-LEGO_logo.svg.png')
     fill_in(:user_bio, :with => "I don't know what to say in bio I don't know what to say in bio I don't know what to say in bio I don't know what to say in bio")
     select('2022', :from => :user_birthday_1i)
-    click_button 'Мне повезёт!'
-    expect(page).to have_title('Google')
+    choose(:user_color_green)
+    check(:user_fruit_pear)
+    select('House', :from => :user_music)
+    select('English', :from => :user_language)
+    choose(:user_pill_red)
+    check(:user_choises_d)
+    fill_in(:user_friends, :with => '123')
+    find(:id, 'user_mood').set 90
+    select('08', :from => :user_awake_4i)
+    select('07', :from => :user_awake_5i)
+    select('2022', :from => :user_first_kiss_1i)
+    choose(:user_active_true)
+    check(:user_terms)
+    find(:xpath, "//input[contains(@name, 'commit')]").click
+    page.first(:xpath, '//span[text()="Success"]').text.should match('SUCCESS')
+    page.first(:xpath, '//p[text()="Form is valid"]').text.should match('Form is valid')
   end
 end
